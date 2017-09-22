@@ -78,3 +78,25 @@ contentMiddleTabUl.addEventListener("mouseover",function(){
     showIndex=getTabIndex(contentMiddleTabUlLis,"current");
     addClassFromIndex(contentMiddleNews,showIndex,"show");
 })
+
+//为.menu区域加上滚动超过他时变为fixed；
+var $menuTop=$(".menu").offset().top;
+$(window).on("scroll",function(){
+    var distance=$menuTop-$("body").scrollTop();
+    if(distance<=0) $(".menu").addClass("fixedTop")
+    if(distance>0) $(".menu").removeClass("fixedTop")
+})
+
+//.content-middle-sidebar区域的
+// $(".content-middle-sidebar-tab ul li").on("mouseover",function(){
+//     $(this).addClass("active").siblings().removeClass("active");
+//     $(".content-middle-sidebar-pages>ul>li").eq($(this).index()).addClass("active").siblings().removeClass("active");
+// })
+addTab(".content-middle-sidebar-tab ul li",".content-middle-sidebar-pages>ul>li")
+addTab(".recommendTab>li",".recommendPages>li")
+function addTab(selector1,selector2){
+    $(selector1).on("mouseover",function(){
+        $(this).addClass("active").siblings().removeClass("active");
+        $(selector2).eq($(this).index()).addClass("active").siblings().removeClass("active");
+    })
+}
